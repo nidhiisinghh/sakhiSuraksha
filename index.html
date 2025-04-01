@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SakhiSuraksha - Women's Safety Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>SakhiSuraksha</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </header>
+
+        <main>
+            <section id="home" class="hero-section">
+                <div class="hero-content">
+                    <h1>Your Safety Matters</h1>
+                    <p>SakhiSuraksha provides real-time protection and peace of mind for women on the go.</p>
+                    <div class="hero-buttons">
+                        <button class="primary-btn">Get Started</button>
+                        <button class="secondary-btn">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="/image.jpg" alt="Women's Safety" style="width: 100%; max-width: 600px; height: auto;">
+                </div>
+            </section>
+
+            <section id="emergency" class="emergency-section">
+                <div class="emergency-container">
+                    <div class="sos-actions">
+                        <button class="sos-button" id="sosButton">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>SOS</span>
+                        </button>
+                        <button id="stopSosButton" class="stop-sos-button" style="display: none;">
+                            STOP SOS
+                        </button>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="action-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>Call Emergency</span>
+                        </div>
+                        <div class="action-card" id="soundAlarmButton">
+                            <i class="fas fa-bell"></i>
+                            <span>Sound Alarm</span>
+                        </div>
+                        <button id="stopAlarmButton" class="stop-alarm-button" style="display: none;">
+                            Stop Alarm
+                        </button>
+                        <div class="action-card" id="alertContactsButton">
+                            <i class="fas fa-users"></i>
+                            <span>Alert Contacts</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features-section">
+                <h2>Key Features</h2>
+                <div class="features-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Real-time Location Tracking</h3>
+                        <p>Share your location with trusted contacts in real-time for added safety during travel.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Emergency Alerts</h3>
+                        <p>Send instant alerts to emergency contacts with your location in case of danger.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3>Safe Route Planning</h3>
+                        <p>Get suggestions for safer routes based on time of day and safety ratings.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3>Voice Activated SOS</h3>
+                        <p>Trigger emergency mode with voice commands when you can't reach your phone.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="safety-map" class="map-section">
+                <h2>Safety Map</h2>
+                <p>View safe zones, police stations, and community-reported areas of concern</p>
+                <div class="map-container">
+                    <div id="safetyMap" class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>Interactive safety map will appear here</p>
+                        <p class="map-note">Enable location services to view the map</p>
+                    </div>
+                    <div class="map-controls">
+                        <button class="map-btn" id="showSafeZones">
+                            <i class="fas fa-check-circle"></i> Safe Zones
+                        </button>
+                        <button class="map-btn" id="showPoliceStations">
+                            <i class="fas fa-building"></i> Police Stations
+                        </button>
+                        <button class="map-btn" id="showHospitals">
+                            <i class="fas fa-hospital"></i> Hospitals
+                        </button>
+                        <button class="map-btn" id="showReportedAreas">
+                            <i class="fas fa-exclamation-circle"></i> Reported Areas
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="trusted-contacts" class="contacts-section">
+                <h2>Trusted Contacts</h2>
+                <p>Add and manage contacts who will receive alerts in case of emergency</p>
+                <div class="contacts-container">
+                    <div class="contacts-list">
+                        <div class="contact-card">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Emergency Contact 1</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="contact-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="contact-btn delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Emergency Contact 2</h4>
+                                <p>+1 (555) 987-6543</p>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="contact-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="contact-btn delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-contact-btn">
+                        <i class="fas fa-plus"></i> Add New Contact
+                    </button>
+                </div>
+            </section>
+
+            <section id="resources" class="resources-section">
+                <h2>Safety Resources</h2>
+                <div class="resources-container">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Safety Tips</h3>
+                        <p>Essential safety guidelines for various situations</p>
+                        <a href="https://paladinsecurity.com/safety-tips/for-women/" class="resource-link">Learn More</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Support Services</h3>
+                        <p>Helplines and support organizations</p>
+                        <a href="http://www.ncw.nic.in/helplines" class="resource-link">View Services</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3>Self-Defense</h3>
+                        <p>Basic self-defense techniques and classes</p>
+                        <a href="https://www.youtube.com/watch?v=KVpxP3ZZtAc" class="resource-link">Explore</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3>Legal Information</h3>
+                        <p>Know your rights and legal resources</p>
+                        <a href="https://www.jagranjosh.com/general-knowledge/top-legal-rights-that-every-woman-should-know-1725449042-1" class="resource-link">Read More</a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>SakhiSuraksha</h2>
+                    <p>Your safety companion</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> support@safeher.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for safety tips and updates</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SakhiSuraksha. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Login</button>
+                </form>
+                <p class="form-switch">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            </div>
+        </div>
+
+        <div class="modal" id="signupModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Create Account</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPhone">Phone Number</label>
+                        <input type="tel" id="signupPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" required>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Sign Up</button>
+                </form>
+                <p class="form-switch">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+        </div>
+
+        <div class="modal" id="sosModal">
+            <div class="modal-content sos-modal">
+                <h2>Emergency Alert</h2>
+                <p>Are you sure you want to send an emergency alert to your trusted contacts?</p>
+                <div class="sos-timer">
+                    <p>Sending alert in <span id="sosCountdown">5</span> seconds</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sosProgress"></div>
+                    </div>
+                </div>
+                <div class="sos-buttons">
+                    <button id="cancelSos" class="sos-cancel-btn">Cancel</button>
+                    <button id="confirmSos" class="sos-confirm-btn">Send Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="addContactModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Add Trusted Contact</h2>
+                <form id="addContactForm">
+                    <div class="form-group">
+                        <label for="contactName">Name</label>
+                        <input type="text" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Phone Number</label>
+                        <input type="tel" id="contactPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactRelation">Relationship</label>
+                        <select id="contactRelation">
+                            <option value="family">Family</option>
+                            <option value="friend">Friend</option>
+                            <option value="colleague">Colleague</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Add Contact</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
